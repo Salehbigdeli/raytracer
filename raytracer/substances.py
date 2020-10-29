@@ -40,28 +40,16 @@ class Vec3:
         if not isinstance(other, (float, int)):
             raise ValueError('Only divide by constants are allowed!')
         return Vec3(self.x/other, self.y/other, self.z/other, self.t/other)
-    
-    def __truediv__(self, other):
-        """Divides a Vec3 by a constant
-        >>> v2 = Vec3(x=2); v2/2
-        Vec3(x=1.0, y=0.0, z=0.0, t=0.0)
-        """
-        return self.__floordiv__(other)
+    __truediv__ = __floordiv__
     
     def __rtruediv__(self, other):
         """Divides a Vec3 by a constant
-        >>> v2 = Vec3(x=2); v2/2
-        Vec3(x=1.0, y=0.0, z=0.0, t=0.0)
+        >>> v2 = Vec3(x=1.0, y=2., z=1.0, t=1.0); 2.0/v2
+        Vec3(x=2.0, y=1.0, z=2.0, t=2.0)
         """
-        return self.__floordiv__(other)
-    
-    def __rloordiv__(self, other):
-        """Divides a Vec3 by a constant
-        >>> v2 = Vec3(x=2); v2/2
-        Vec3(x=1.0, y=0.0, z=0.0, t=0.0)
-        """
-        return self.__floordiv__(other)
-    
+        return Vec3(other/self.x, other/self.y, other/self.z, other/self.t)
+    __rfloordiv__ = __rtruediv__
+
     def __abs__(self):
         """Computes absolute value of a `Vec3`
         >>> v2 = Vec3(x=4, y=3); abs(v2)
