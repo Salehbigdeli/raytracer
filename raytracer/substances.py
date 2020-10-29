@@ -37,6 +37,8 @@ class Vec3:
             return Vec3(self.x*other, self.y*other, self.z*other)
         return Vec3(self.x*other.x, self.y*other.y, self.z*other.z)
 
+    __rmul__ = __mul__
+
     def __repr__(self):
         return f'Vec3(x={self.x}, y={self.y}, z={self.z})'
 
@@ -92,3 +94,16 @@ class Vec3:
 class Color(Vec3):
     def __str__(self):
         return f'{int(min(self.x*256, 255))} {int(min(self.y*256, 255))} {int(min(self.z*256, 255))}'
+
+
+class Ray:
+    def __init__(self, origin, direction):
+        self.origin = origin
+        self.direction = direction
+    
+    def at(self, t):
+        return self.origin + self.direction*t
+    
+    def ray_color(self):
+        t = 0.5*(self.direction.unit_vec().y + 1.0)
+        return Color((1.0-t)*Color(1.0, 1.0, 1.0) + t*Color(0.5, 0.7, 1.0))
