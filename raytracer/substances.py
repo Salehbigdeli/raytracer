@@ -87,3 +87,8 @@ class Vec3:
         Vec3(x=0.8, y=0.6, z=0.0)
         """
         return Vec3(self/abs(self))
+
+
+class Color(Vec3):
+    def __str__(self):
+        return f'{int(min(self.x*256, 255))} {int(min(self.y*256, 255))} {int(min(self.z*256, 255))}'
